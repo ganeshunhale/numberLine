@@ -53,8 +53,6 @@ function draw() {
   addition = additionSlider.value();
 }
 
-
-
 function calculateDimensions() {
   startX = width * 0.1;
   endX = width * 0.9;
@@ -68,7 +66,7 @@ function calculateDimensions() {
 
 function drawNumberLine() {
   stroke(0);
-  line(startX + offsetX, numberLineY + offsetY, endX + offsetX, numberLineY + offsetY);
+  line(offsetX, numberLineY + offsetY, endX + offsetX + endX, numberLineY + offsetY);
   for (let i = 0; i < totalTicks; i++) {
     const x = startX + i * tickSpacing + offsetX;
     const value = -10 + i;
@@ -79,23 +77,48 @@ function drawNumberLine() {
 }
 
 function drawAditionSubstraction() {
-  fill(200);
-  fill(0);
-  textAlign(CENTER);
+  strokeWeight(2);
+  if (showPlusCheckbox.checked()) {
+    stroke(0, 200, 0);
+    drawingContext.setLineDash([5, 5]);
+    line(pointX + offsetX, numberLineY + offsetY - 30, plusAddition, numberLineY + offsetY - 30);
+    noStroke();
+    ellipse(plusAddition, numberLineY + offsetY - 30, 10);
+    stroke(0, 200, 0);
+  }
+  if (showMinusCheckbox.checked()) {
+    stroke(200, 0, 0);
+    drawingContext.setLineDash([5, 5]);
+    line(pointX + offsetX, numberLineY + offsetY - 30, minusAddition, numberLineY + offsetY - 30);
+    noStroke();
+    ellipse(minusAddition, numberLineY + offsetY - 30, 10);
+    stroke(200, 0, 0);
+  }
+  drawingContext.setLineDash([]);
+}
+
+function drawArrowhead(x, y, dirX, dirY) {
+  const size = 7;
+  push();
+  translate(x, y);
+  rotate(atan2(dirY, dirX));
+  beginShape();
+  vertex(0, 0);
+  vertex(-size, -size / 2);
+  vertex(-size, size / 2);
+  endShape(CLOSE);
+  pop();
 }
 
 function drawDraggablePoint() {
   fill(50, 120, 240);
   ellipse(pointX + offsetX, numberLineY + offsetY, 20);
-
   plusAddition = pointX + addition * tickSpacing + offsetX;
   minusAddition = pointX - addition * tickSpacing + offsetX;
-
   if (showPlusCheckbox.checked()) {
     fill(150, 120, 240);
     ellipse(plusAddition, numberLineY + offsetY, 20);
   }
-
   if (showMinusCheckbox.checked()) {
     fill(240, 120, 150);
     ellipse(minusAddition, numberLineY + offsetY, 20);
@@ -110,10 +133,10 @@ function displayValue() {
   text(`Value: ${nearest}`, width / 2, 50);
   textSize(22);
   if (showPlusCheckbox.checked()) {
-    text(`${nearest} + ${addition} = ${nearest + addition}`, startX+400 ,startX+265);
+    text(`${nearest} + ${addition} = ${nearest + addition}`, startX + 400, startX + 265);
   }
-  if(showMinusCheckbox.checked()){
-    text(`${nearest} - ${addition} = ${nearest - addition}`, startX+400 ,startX+305);
+  if (showMinusCheckbox.checked()) {
+    text(`${nearest} - ${addition} = ${nearest - addition}`, startX + 400, startX + 305);
   }
 }
 
