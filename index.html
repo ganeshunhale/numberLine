@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Number Line</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="sketch.js" defer></script>
+
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #canvas-container {
+      width: 80vw;
+      height: 60vh;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #reset-button {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #reset-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Number Line</h1>
+  <div id="canvas-container"></div>
+  <button id="reset-button" ><i class="fa fa-refresh"></i></button>
+</body>
+</html>
